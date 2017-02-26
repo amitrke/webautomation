@@ -1,0 +1,21 @@
+{
+  "name": "webautomate2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "webdriver-manager": "^12.0.2",
+    "webdriverio": "^4.6.2"
+  },
+  "devDependencies": {
+    "wdio-mocha-framework": "^0.5.8"
+  }
+}
