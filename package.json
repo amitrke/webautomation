@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "startWebDrv":"./node_modules/.bin/webdriver-manager start",
+    "installWebDrv":"./node_modules/.bin/webdriver-manager update",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

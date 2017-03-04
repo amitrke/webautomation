@@ -32,10 +32,13 @@ describe('Best buy credit card site', function(){
             });
     });
 
-    it('Login was success',function() {
+    it('Outstanding amount is 0',function() {
         return client.
             getText('//*[@id="skip_target"]/section[2]/section/article/div[1]/dl[2]/dd[1]').then(function (title) {
-            assert.equal(title,'0');
+            if (title != '0'){
+                client.saveScreenshot('bestbuycc.png')
+            }
+            assert.equal(title,'$0.00');
         });
     });
 

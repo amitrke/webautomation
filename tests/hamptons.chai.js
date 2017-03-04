@@ -42,7 +42,7 @@ describe('Hamptons at RTP site', function(){
                 if (title != '0'){
                     client.saveScreenshot('hamptons.png')
                 }
-                assert.equal(title,'0');
+                assert.equal(title,'$0.00');
             })
     });
 

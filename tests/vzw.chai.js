@@ -15,38 +15,39 @@ describe('VZW site', function(){
 
     it('Is at login screen',function() {
          return client
-            .url('https://www.verizonwireless.com/')
-            .getText('.o-sign-in-bar-blurb').then(function (title) {
-                 assert.strictEqual(title,'Sign in');
+            .url('https://mobile.vzw.com/hybridClient/index.html?wifi-enterMdn')
+             .waitForExist('title',8000)
+            .getTitle().then(function (title) {
+                 assert.strictEqual(title,'My Verizon Mobile');
              });
     });
 
     it('Login works',function() {
         return client
-            .setValue('#IDToken1',config.vzw.userid)
-            .click('.o-sign-in-bar-sign-in')
-            .waitForExist('div.container-fluid',8000)
-            .getTitle().then(function (title) {
-                assert.strictEqual(title,'Verizon Secret Question');
-            })
-            .getText('/html/body/div[3]/div[3]/div[1]/p[3]').then(function (title) {
+            .waitForExist('#uid',8000)
+            .setValue('#uid',config.vzw.userid)
+                .click('#loginSubmit')
+            .waitForExist('#challengeQuestion',8000)
+            .getText('//*[@id="challengeQuestionWrapper"]/div/div[4]/p[2]').then(function (title) {
                 assert.strictEqual(title,config.vzw.secretq);
             })
-            .setValue('#IDToken1',config.vzw.secreta)
-            .click('#otherButton')
-            .waitForExist('div.container-fluid',8000)
-            .getText('//*[@id="loginForm"]/fieldset/label').then(function (title) {
-                assert.strictEqual(title,'Enter Password:');
-            })
-            .setValue('#IDToken2',config.vzw.password)
-            .click('.o-red-button')
-            .waitForExist('//*[@id="myVzwOverview"]/div[4]/div/div[1]/div/div[1]/span[2]',8000)
+            .setValue('#challengeQuestion',config.vzw.secreta)
+            .click('#loginSubmit')
+            .waitForExist('#password',8000)
+            .setValue('#password',config.vzw.password)
+            .click('#loginSubmit')
+            .waitForExist('//*[@id="home-carousel"]/div[1]/div[1]/span[1]',8000)
+            .click("#billPillar")
+            .waitForExist('//*[@id="bill_content"]/div[3]/div[1]/span[2]"');
     });
 
     it('Current amount due should be 0',function() {
         return client
-            .getText('//*[@id="myVzwOverview"]/div[4]/div/div[1]/div/div[1]/span[2]').then(function (title) {
-            assert.equal(title,'0');
+            .getText('//*[@id="bill_content"]/div[3]/div[1]/span[2]').then(function (title) {
+                if (title != '$0.00'){
+                    client.saveScreenshot('vzw.png')
+                }
+            assert.equal(title,'$0.00');
         })
     });
 
