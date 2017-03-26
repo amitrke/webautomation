@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "startWebDrv":"./node_modules/.bin/webdriver-manager start",
+    "stopWebDrv":"./node_modules/.bin/webdriver-manager stop",
     "installWebDrv":"./node_modules/.bin/webdriver-manager update",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha tests"
   },
   "keywords": [],
   "author": "",
